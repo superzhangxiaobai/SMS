@@ -48,12 +48,6 @@ public class UserInfo implements Serializable {
 	// 创建人
 	@Column(name = "creator",updatable = false)
 	private String creator;
-	// 修改人
-	@Column(name = "updator")
-	private String updator;
-	// 修改时间
-	@Column(name = "updatetime")
-	private Date updatetime;
 	// 备注
 	@Column(name = "memo")
 	private String memo;
@@ -65,7 +59,7 @@ public class UserInfo implements Serializable {
 	private Integer status;
 	// 是否激活
 	@Column(name = "isactive")
-	private boolean isactive;
+	private Integer isactive;
 
 	public String getCardpic() {
 		return cardpic;
@@ -171,22 +165,6 @@ public class UserInfo implements Serializable {
 		this.creator = creator;
 	}
 
-	public String getUpdator() {
-		return updator;
-	}
-
-	public void setUpdator(String updator) {
-		this.updator = updator;
-	}
-
-	public Date getUpdatetime() {
-		return updatetime;
-	}
-
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
-	}
-
 	public String getMemo() {
 		return memo;
 	}
@@ -203,11 +181,11 @@ public class UserInfo implements Serializable {
 		this.status = status;
 	}
 
-	public boolean getIsactive() {
+	public Integer getIsactive() {
 		return isactive;
 	}
 
-	public void setIsactive(boolean isactive) {
+	public void setIsactive(Integer isactive) {
 		this.isactive = isactive;
 	}
 }

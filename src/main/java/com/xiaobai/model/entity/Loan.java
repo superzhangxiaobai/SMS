@@ -13,7 +13,7 @@ public class Loan {
     @Column(name = "userid")
     private Integer userid;
     @Column(name = "createtime",updatable = false)
-    private Date createtime;
+    private Date createtime;//数据库已设置默认值
     @Column(name = "creator")
     private String creator;
     @Column(name = "status")
@@ -30,6 +30,14 @@ public class Loan {
     private String confirmor;
     @Column(name = "memo")
     private String memo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

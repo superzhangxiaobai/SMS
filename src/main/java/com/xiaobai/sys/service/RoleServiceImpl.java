@@ -23,6 +23,7 @@ public class RoleServiceImpl {
     @Autowired
     private RoleMenuMapper roleMenuMapper;
     public Map<String,Object> getAll(SysParam param) {
+        param.setTablename("t_role");
         Map<String,Object> result=new HashMap<>();
         List<RoleInfo> list = mapper.getAll(param);
         result.put("data",list);
@@ -42,8 +43,6 @@ public class RoleServiceImpl {
             result.put("msg",insert>0?"操作成功":"操作失败");
             result.put("data",role);
         }else {
-            role.setUpdatetime(now);
-            role.setUpdator(username);
             int update= mapper.updateByPrimaryKeySelective(role);//根据主键进行非空属性更改
             result.put("msg",update>0?"操作成功":"操作失败");
             result.put("data",role);

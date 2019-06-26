@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;//使用插件读取mapper类, �
 
 @SpringBootApplication
 //这个表示mybatis自动扫描dao接口的包名，com.xiaobai.sys.mapper
-@MapperScan("com.xiaobai.sys.mapper")
+@MapperScan("com.xiaobai.*.mapper")
 public class SMSApplication {
 
 	public static void main(String[] args) {

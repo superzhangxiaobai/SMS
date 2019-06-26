@@ -21,7 +21,6 @@ public class PermissionServiceImpl {
         UserDetails auth = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInfo user = userMapper.getUserLoginInfo(auth.getUsername());
         List<MenuInfo> list = mapper.getListByUserid(user.getId());
-        //List<MenuInfo> list = mapper.selectAll();
         return list;
     }
 }

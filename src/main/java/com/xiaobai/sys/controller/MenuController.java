@@ -5,6 +5,8 @@ import com.xiaobai.sys.entity.MenuInfo;
 import com.xiaobai.sys.base.SysParam;
 import com.xiaobai.sys.service.MenuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +33,9 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "addOrUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> addOrUpdateMenu(MenuInfo menu){
-        Map<String,Object> result= service.addOrUpdateMenu(menu);
+        UserDetails auth = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        menu.setCreator(auth.getUsername());
+        Map<String,Object> result= service.addOrUpdate(menu);
         return result;
     }
 }

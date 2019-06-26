@@ -26,20 +26,6 @@ public class RoleInfo {
     // 创建人
     @Column(name = "creator",updatable = false)
     private String creator;
-    // 修改人
-    @Column(name = "updator")
-    private String updator;
-    // 修改时间
-    @Column(name = "updatetime")
-    private Date updatetime;
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
 
     public Date getCreatetime() {
         return createtime;
@@ -55,14 +41,6 @@ public class RoleInfo {
 
     public void setCreator(String creator) {
         this.creator = creator;
-    }
-
-    public String getUpdator() {
-        return updator;
-    }
-
-    public void setUpdator(String updator) {
-        this.updator = updator;
     }
 
     public String getRole() {

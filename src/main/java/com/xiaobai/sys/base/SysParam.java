@@ -5,7 +5,9 @@ public class SysParam {
     private String name;
     private String id;
     private String pid;
-    private boolean isEnable;
+    private Integer isEnable;
+    private Integer pageSize=15;
+    private Integer pageNo=1;
     private String status;
     private String username;
     private String userid;
@@ -13,6 +15,22 @@ public class SysParam {
     private String menuid;
     private String password;
     private String newpassword;
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
 
     public String getTablename() {
         return tablename;
@@ -70,12 +88,12 @@ public class SysParam {
         this.username = username;
     }
 
-    public boolean isEnable() {
+    public Integer getIsEnable() {
         return isEnable;
     }
 
-    public void setEnable(boolean enable) {
-        isEnable = enable;
+    public void setIsEnable(Integer isEnable) {
+        this.isEnable = isEnable;
     }
 
     public String getName() {

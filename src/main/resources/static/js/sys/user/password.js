@@ -38,7 +38,7 @@ var user_p=new Vue({
 			//验证通过提交表单
 			this.$refs["app"].validate((valid)=>{
 				axios({
-					url: ctxPath + 'sys/app/updatepwd',
+					url: ctxPath + 'sys/user/updatepwd',
 					method: "post",
 					params:this.app}).then(res => {
 					return res.data

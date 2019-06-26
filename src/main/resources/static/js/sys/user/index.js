@@ -218,7 +218,7 @@ var user=new Vue({
 		user_submit:function(){
 			//更新用户信息
 			axios({
-				url: ctxPath + 'sys/app/addOrUpdate',
+				url: ctxPath + 'sys/user/addOrUpdate',
 				method: "post",
 				params:this.user_form,
 				paramsSerializer: function(params) {
@@ -269,7 +269,7 @@ var user=new Vue({
 		},
 		getUsers:function () {
 			axios({
-				url: ctxPath + 'sys/app/getAll',
+				url: ctxPath + 'sys/user/getAll',
 				method: "post",
 				params:user.param})
 				.then(function (response) {

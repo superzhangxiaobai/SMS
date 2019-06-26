@@ -23,7 +23,7 @@ public class MenuInfo {
     @Column(name = "pid")
     private Integer pid;
     @Column(name = "isEnable")
-    private boolean isEnable;
+    private Integer isEnable;
     @Column(name = "status")
     private Integer status=1;
     @Column(name = "type")
@@ -43,12 +43,6 @@ public class MenuInfo {
     // 创建人
     @Column(name = "creator",updatable = false)
     private String creator;
-    // 修改人
-    @Column(name = "updator")
-    private String updator;
-    // 修改时间
-    @Column(name = "updatetime")
-    private Date updatetime;
 
     public String getIcon() {
         return icon;
@@ -90,12 +84,12 @@ public class MenuInfo {
         this.pid = pid;
     }
 
-    public boolean getIsEnable() {
+    public Integer getIsEnable() {
         return isEnable;
     }
 
-    public void setIsEnable(boolean enable) {
-        isEnable = enable;
+    public void setIsEnable(Integer isEnable) {
+        this.isEnable = isEnable;
     }
 
     public Integer getStatus() {
@@ -121,19 +115,19 @@ public class MenuInfo {
         this.creator = creator;
     }
 
-    public String getUpdator() {
-        return updator;
-    }
-
-    public void setUpdator(String updator) {
-        this.updator = updator;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    @Override
+    public String toString() {
+        return "MenuInfo{" +
+            "id=" + id +
+            ", menuname='" + menuname + '\'' +
+            ", url='" + url + '\'' +
+            ", icon='" + icon + '\'' +
+            ", pid=" + pid +
+            ", isEnable=" + isEnable +
+            ", status=" + status +
+            ", type='" + type + '\'' +
+            ", createtime=" + createtime +
+            ", creator='" + creator + '\'' +
+            '}';
     }
 }

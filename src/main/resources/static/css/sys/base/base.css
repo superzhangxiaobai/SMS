@@ -11,3 +11,7 @@ iframe{
     width:100%;
     height: 100%;
 }
+.ivu-page{
+    padding-top: 10px;
+    text-align: center;
+}

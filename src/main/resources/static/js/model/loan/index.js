@@ -2,19 +2,18 @@ var app=new Vue({
 	el: '#app',
 	data: {
 		selected_node: '',
-		users: [],
+		data: [],
 		stripe:true,//斑马纹
 		loading: true,       // 首页是否加载
 		containerhei: 0,
-		user_form: {},
-		role_form: {},
+		is_show_app:false,
+		app_form: {},
 		param:{
-			username:'',
 			status:1,
+			pageSize:15,
+			pageNo:1,
 		},
-		is_show_user:false,
-		is_show_role:false,
-		user_columns:[
+		app_columns:[
 			{
 				type: 'index',
 				width: 60,
@@ -26,27 +25,27 @@ var app=new Vue({
 				width: 100,
 			},
 			{
-				title: '账号',
-				key: 'loginname',
+				title: '用户标识',
+				key: 'userid',
 				width: 100,
 			},
 			{
-				title: '电话',
+				title: '预支金额',
 				width: 100,
-				key: 'tel',
+				key: 'loan',
 			},
 			{
-				title: '住址',
+				title: '实际预支',
 				width: 100,
 				key: 'address',
 			},
 			{
-				title: '邮箱',
+				title: '声请人',
 				width: 100,
-				key: 'email',
+				key: 'creator',
 			},
 			{
-				title: '创建时间',
+				title: '申请时间',
 				key: 'createtime',
 				width: 100,
 				render:(h,params)=>{
@@ -54,8 +53,17 @@ var app=new Vue({
 				}
 			},
 			{
-				title: '创建人',
-				key: 'creator',
+				title: '预支成功',
+				key: 'ispay',
+				width: 100,
+			},
+			{
+				title: '预支确认',
+				key: 'loaner',
+				width: 100,
+			},{
+				title: '财务确认',
+				key: 'confirmor',
 				width: 100,
 			},
 			{
@@ -82,7 +90,7 @@ var app=new Vue({
 							},
 							on: {
 								click: () => {
-									app.user_upd(params);
+									app.app_form_upd(params);
 								}
 							}
 						},'修改'),
@@ -98,7 +106,7 @@ var app=new Vue({
 							},
 							on: {
 								click: () => {
-									app.user_del(params);
+									app.app_form_del(params);
 								}
 							}
 						},'删除')
@@ -106,174 +114,54 @@ var app=new Vue({
 				}
 			}
 		],
-		role_columns:[
-			{
-				type: 'index',
-				width: 60,
-				align: 'center'
-			},
-			{
-				title: '角色编码',
-				key: 'rolename',
-				width:150,
-				align: 'center'
-			},
-			{
-				title: '角色名称',
-				key: 'role',
-				width:150,
-				align: 'center'
-			},
-			{
-				title: '备注',
-				key: 'memo',
-				width:150,
-				align: 'center'
-			},
-			{
-				title: '操作',
-				key: 'action',
-				fixed: 'right',
-				width: 180,
-				render: (h, params) => {
-					return h('div', [
-						h('Button', {
-							props: Object.assign({}, this.buttonProps, {
-								icon: 'ios-create-outline',
-								type: 'primary',
-								size: 'small',
-								//ghost:'ghost',
-							}),
-							style: {
-								marginRight: '8px'
-							},
-							on: {
-								click: () => {
-									app.role_upd(params);
-								}
-							}
-						}, '修改'),
-						h('Button', {
-							props: Object.assign({}, this.buttonProps, {
-								icon: 'ios-remove',
-								type: 'error',
-								size: 'small',
-								//ghost:'ghost',
-							}),
-							style: {
-								marginRight: '8px'
-							},
-							on: {
-								click: () => {
-									app.role_del(params);
-								}
-							}
-						}, '删除')
-					]);
-				}
-			}
-		],
-		user_rules: {//验证规则
+		app_rules: {//验证规则
 			title: [
 				{required: true, message: '该项为必填项', trigger: 'blur'},
 				{type: 'string', min: 10, message: '改项字段长度最大为10', trigger: 'blur'}
 			]
 		},
-		role_rules: {//验证规则
-			title: [
-				{required: true, message: '该项为必填项', trigger: 'blur'},
-				{type: 'string', min: 10, message: '改项字段长度最大为10', trigger: 'blur'}
-			]
-		},
-		roles:[],//所有角色对象
 	},
 	methods:{
-		user_upd:function(params){
-			app.user_form=common.deepCopy(params.row);
-			app.user_form.roles=params.row.roles?params.row.roles.split(',').map(Number):[];
-			app.is_show_user=true;
+		app_form_upd:function(params){
+			app.app_form=common.deepCopy(params.row);
+			app.is_show_app=true;
 		},
-		user_del:function(params){
-			app.user_form.id=params.row.id;
-			app.user_form.status=-1;
-			app.user_submit();
+		app_form_del:function(params){
+			app.app_form.id=params.row.id;
+			app.app_form.status=-1;
+			app.app_form_submit();
 		},
-		user_add:function(){
-			app.user_form={status:1,username:'',};
-			app.is_show_user=true;
+		app_form_add:function(){
+			app.app_form={status:1,username:'',};
+			app.is_show_app=true;
 		},
-		role_upd:function(params){
-			app.role_form=common.deepCopy(params.row);
-			app.is_show_role=true;
-		},
-		role_del:function(params){
-			app.role_form.id=params.row.id;
-			app.role_form.status=-1;
-			app.role_submit();
-		},
-		role_add:function(){
-			app.role_form={status:1,rolename:'',role:''};
-			app.is_show_role=true;
-		},
-		user_submit:function(){
+		app_form_submit:function(){
 			//更新用户信息
 			axios({
-				url: ctxPath + 'sys/app/addOrUpdate',
+				url: ctxPath + 'model/loan/addOrUpdate',
 				method: "post",
-				params:this.user_form,
+				params:this.app_form,
 				paramsSerializer: function(params) {
 					return common.stringify(params);
 				}
 			}).then(res => {
 				return res.data
 			}).then( data => {
-				app.getUsers();
+				app.getData();
 				app.$Message.success(data.msg);
 			})
 		},
-		role_submit:function(){
-			//更新角色信息
+		getPY:function(){
+			var jx=common.getPinyin(this.app_form.username);
+			this.app_form.loginname=jx;
+		},
+		getData:function () {
 			axios({
-				url: ctxPath + 'sys/role/addOrUpdate',
-				method: "post",
-				params:this.role_form,
-				paramsSerializer: function(params) {
-					return common.stringify(params);
-				}
-			}).then(res => {
-				return res.data
-			}).then( data => {
-				app.getRoles();
-				app.$Message.success(data.msg);
-			})
-		},
-		getPY_user:function(){
-			var jx=common.getPinyin(this.user_form.username);
-			this.user_form.loginname=jx;
-		},
-		getPY_role:function(){
-			var jx=common.getAlpha(this.role_form.role);
-			this.role_form.rolename='ROLE_'+jx;
-		},
-		getRoles:function(){
-			axios({
-				url: ctxPath + 'sys/role/getAll',
+				url: ctxPath + 'model/loan/getAll',
 				method: "post",
 				params:app.param})
 				.then(function (response) {
-					app.roles=response.data.data;
-				})
-				.catch(function (error) {
-					app.$Message.error(error.response.data.message);
-				});;
-		},
-		getUsers:function () {
-			axios({
-				url: ctxPath + 'sys/app/getAll',
-				method: "post",
-				params:app.param})
-				.then(function (response) {
-					app.users=response.data.data;
+					app.data=response.data.data;
 					app.loading=false;
 				})
 				.catch(function (error) {
@@ -285,7 +173,6 @@ var app=new Vue({
 
 
 $(function () {
-	app.getUsers();
-	app.getRoles();
+	app.getData();
 	app.containerhei=$(".container-fluid").height()-35;
 });

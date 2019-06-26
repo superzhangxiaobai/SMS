@@ -9,7 +9,7 @@ public class MybatisScannerConfig {
     @Bean
     public MapperScannerConfigurer MapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.xiaobai.sys.mapper");
+        mapperScannerConfigurer.setBasePackage("com.xiaobai.*.mapper");
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
         return mapperScannerConfigurer;
     }

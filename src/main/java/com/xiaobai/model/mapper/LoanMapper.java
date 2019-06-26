@@ -7,7 +7,6 @@ import com.xiaobai.sys.base.BaseMapper;
 import com.xiaobai.sys.base.SysParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.jdbc.SQL;
 
 import java.util.List;
 

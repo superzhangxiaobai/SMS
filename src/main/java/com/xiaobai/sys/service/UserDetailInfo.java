@@ -103,8 +103,7 @@ public class UserDetailInfo extends BaseService<UserInfo> implements UserDetails
 
 	public Map<String,Object> getAll(SysParam param) {
 		Map<String,Object> result=new HashMap<>();
-		boolean isEnable=true;
-		param.setEnable(true);
+		param.setIsEnable(1);
 		List<UserInfo> list = mapper.getAll(param);
 		result.put("data",list);
 		//可加入分页, 总数等数据
@@ -126,8 +125,6 @@ public class UserDetailInfo extends BaseService<UserInfo> implements UserDetails
 			result.put("msg",insert>0?"操作成功":"操作失败");
 			result.put("data",user);
 		}else {
-			user.setUpdatetime(now);
-			user.setUpdator(username);
 			int update= mapper.updateByPrimaryKeySelective(user);//根据主键进行非空属性更改
 			result.put("msg",update>0?"操作成功":"操作失败");
 			result.put("data",user);
