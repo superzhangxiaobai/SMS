@@ -129,7 +129,7 @@ var index=new Vue({
 $(function () {
 	index.containerhei=$(window).height()-132;
 	axios
-		.get(ctxPath + "sys/permission/app")
+		.get(ctxPath + "sys/permission/user")
 		.then(function (response) {
 			var tree=common.filterArray(response.data,0);
             $.each(tree, function (n, item) {
