@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Class-Path: spring-tx-4.3.13.RELEASE.jar aopalliance-1.0.jar logback-c
+ ore-1.1.11.jar validation-api-1.1.0.Final.jar jboss-logging-3.3.1.Fin
+ al.jar thymeleaf-2.1.6.RELEASE.jar jackson-core-asl-1.9.2.jar spring-
+ boot-starter-1.5.9.RELEASE.jar jackson-annotations-2.8.0.jar oauth2-o
+ idc-sdk-4.5.jar spring-security-config-4.2.3.RELEASE.jar thymeleaf-ex
+ tras-springsecurity4-2.1.3.RELEASE.jar httpcore-4.4.8.jar azure-keyva
+ ult-0.9.3.jar mapper-extra-1.1.5.jar spring-web-4.3.13.RELEASE.jar rx
+ tx-2.1.7.jar spring-boot-starter-jdbc-1.5.9.RELEASE.jar mapper-spring
+ -1.1.5.jar jersey-core-1.13.jar fastjson-1.2.8.jar lang-tag-1.4.jar j
+ cip-annotations-1.0.jar logback-classic-1.1.11.jar commons-lang-2.6.j
+ ar hamcrest-core-1.3.jar jackson-xc-1.9.2.jar azure-core-0.9.3.jar jc
+ onsole.jar adal4j-1.0.0.jar mapper-spring-boot-starter-2.1.5.jar spri
+ ng-boot-devtools-1.5.9.RELEASE.jar thymeleaf-layout-dialect-1.4.0.jar
+  jettison-1.1.jar asm-5.0.3.jar spring-core-4.3.13.RELEASE.jar thymel
+ eaf-spring4-2.1.6.RELEASE.jar jackson-jaxrs-1.9.2.jar mybatis-spring-
+ boot-autoconfigure-1.3.1.jar httpclient-4.5.3.jar spring-expression-4
+ .3.13.RELEASE.jar spring-boot-starter-logging-1.5.9.RELEASE.jar sprin
+ g-boot-starter-thymeleaf-1.5.9.RELEASE.jar xml-apis-1.4.01.jar nekoht
+ ml-1.9.22.jar tomcat-embed-core-8.5.23.jar mapper-base-1.1.5.jar snak
+ eyaml-1.17.jar tomcat-embed-websocket-8.5.23.jar xercesImpl-2.11.0.ja
+ r spring-boot-starter-security-1.5.9.RELEASE.jar druid-1.1.4.jar jers
+ ey-json-1.13.jar nimbus-jose-jwt-3.1.2.jar spring-boot-starter-web-1.
+ 5.9.RELEASE.jar spring-boot-1.5.9.RELEASE.jar mapper-weekend-1.1.5.ja
+ r jaxb-api-2.2.2.jar junit-4.12.jar mapper-spring-boot-autoconfigure-
+ 2.1.5.jar bcprov-jdk15on-1.51.jar tomcat-jdbc-8.5.23.jar spring-jdbc-
+ 4.3.13.RELEASE.jar unbescape-1.1.0.RELEASE.jar jackson-mapper-asl-1.9
+ .2.jar jcl-over-slf4j-1.7.25.jar spring-boot-starter-tomcat-1.5.9.REL
+ EASE.jar tomcat-juli-8.5.23.jar mybatis-spring-boot-starter-1.3.1.jar
+  spring-context-4.3.13.RELEASE.jar stax-api-1.0-2.jar accessors-smart
+ -1.1.jar javax.inject-1.jar spring-security-taglibs-4.2.3.RELEASE.jar
+  mapper-core-1.1.5.jar mail-1.4.5.jar tomcat-embed-el-8.5.23.jar piny
+ in4j-2.5.1.jar hibernate-validator-5.3.6.Final.jar mybatis-3.4.5.jar 
+ groovy-2.4.13.jar stax-api-1.0.1.jar spring-security-acl-4.2.3.RELEAS
+ E.jar spring-boot-autoconfigure-1.5.9.RELEASE.jar log4j-over-slf4j-1.
+ 7.25.jar spring-aop-4.3.13.RELEASE.jar jackson-databind-2.8.10.jar cl
+ assmate-1.3.4.jar spring-security-core-4.2.3.RELEASE.jar spring-secur
+ ity-web-4.2.3.RELEASE.jar tools.jar activation-1.1.jar persistence-ap
+ i-1.0.jar tomcat-annotations-api-8.5.23.jar mybatis-spring-1.3.1.jar 
+ commons-lang3-3.4.jar jaxb-impl-2.2.3-1.jar spring-beans-4.3.13.RELEA
+ SE.jar spring-webmvc-4.3.13.RELEASE.jar javassist-3.21.0-GA.jar jacks
+ on-core-2.8.10.jar jul-to-slf4j-1.7.25.jar json-smart-2.2.1.jar log4j
+ -1.2.17.jar mssql-jdbc-6.1.0.jre7.jar jersey-client-1.13.jar commons-
+ codec-1.10.jar slf4j-api-1.7.25.jar gson-2.8.2.jar ognl-3.0.8.jar
+Main-Class: com.xiaobai.SMSApplication
+
