@@ -19,6 +19,7 @@ public class RoleController extends BaseController {
     @RequestMapping("getAll")
     @ResponseBody
     public Map<String,Object> getAll(SysParam param){
+        param.setPageSize(1000);//设置不限定内容
         Map<String,Object> result= service.getAll(param);
         return result;
     }

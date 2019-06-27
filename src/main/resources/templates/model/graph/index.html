@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link th:include="base/base::header ('菜单管理')" />
+    <link rel="stylesheet" th:href="@{/css/sys/base/base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/model/graph/jquery-ui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/model/graph/index.css}"/>
+</head>
+<body>
+<div class="container-fluid " id="draggable"
+     th:style="'background-image:url('+@{/imgs/system/bg.png} +');background-repeat: no-repeat;background-position: center center; background-size:100% 100%;'">
+    <div id="app" style="z-index: 99;">
+        <i-button type="success" icon="ios-add" size="small" @click="addarea">添加区域</i-button>
+        <i-button type="success" icon="ios-add" size="small" @click="lock">锁定区域</i-button>
+        <i-button type="success" icon="ios-add" size="small" @click="getdata">获取数据</i-button>
+    </div>
+</div>
+<script th:src="@{/js/model/graph/index.js}"></script>
+<script th:src="@{/js/model/graph/jquery-ui.min.js}"></script>
+</body>
+</html>

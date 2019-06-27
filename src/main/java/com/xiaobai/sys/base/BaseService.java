@@ -2,6 +2,7 @@ package com.xiaobai.sys.base;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -38,10 +39,9 @@ public abstract class BaseService<T> {
         result.put("status",-1);
         try {
             Class clazz = entity.getClass();
-            Object obj = clazz.newInstance();
             Method method = clazz.getMethod("getId");
             int line=0;
-            if(method.invoke(obj)==null){
+            if(method.invoke(entity)==null){
                 line=insert(entity);
                 result.put("status",line);
             }else {
@@ -53,8 +53,6 @@ public abstract class BaseService<T> {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();

@@ -1,0 +1,29 @@
+.draggable{
+    width: 100px;
+    height: 100px;
+    opacity: 0.5;
+    border:none;
+}
+.content{
+    position: absolute;
+    z-index: 99;
+    text-align: center;
+    font: bold 14px/1.5em simsun;
+    width: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+}
+.draggable .bg{
+    width: 100%;
+    height: 100%;
+}
+.coor{
+    z-index: 100;
+    bottom: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+    background: red;
+    position: absolute;
+}
