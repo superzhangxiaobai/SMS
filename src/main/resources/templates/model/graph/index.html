@@ -7,17 +7,24 @@
     <link rel="stylesheet" th:href="@{/css/sys/base/base.css}"/>
     <link rel="stylesheet" th:href="@{/css/model/graph/jquery-ui.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/model/graph/index.css}"/>
+    <link rel="stylesheet" th:href="@{/css/model/graph/context.standalone.css}"/>
 </head>
 <body>
-<div class="container-fluid " id="draggable"
+<div id="app" style="z-index: 100;position: relative;">
+    <i-button type="success" icon="ios-add" size="small" @click="modal=true">添加区域</i-button>
+    <i-button type="success" icon="ios-add" size="small" @click="lock">{{locktext}}</i-button>
+    <i-button type="success" icon="ios-add" size="small" @click="refresh">刷新</i-button>
+    <i-button type="success" icon="ios-add" size="small" @click="submit">提交</i-button>
+    <Modal :title="modal_title" v-model="modal" class-name="vertical-center-modal" @on-ok="addarea" ok-text="确定" draggable>
+        <i-input type="textarea" v-model="modal_content" placeholder="内容说明"></i-input>
+    </Modal>
+</div>
+<div class="container-fluid" id="draggable"
      th:style="'background-image:url('+@{/imgs/system/bg.png} +');background-repeat: no-repeat;background-position: center center; background-size:100% 100%;'">
-    <div id="app" style="z-index: 99;">
-        <i-button type="success" icon="ios-add" size="small" @click="addarea">添加区域</i-button>
-        <i-button type="success" icon="ios-add" size="small" @click="lock">锁定区域</i-button>
-        <i-button type="success" icon="ios-add" size="small" @click="getdata">获取数据</i-button>
-    </div>
+    <!--<img th:src="@{/imgs/system/bg.png}"></div>-->
 </div>
 <script th:src="@{/js/model/graph/index.js}"></script>
 <script th:src="@{/js/model/graph/jquery-ui.min.js}"></script>
+<script th:src="@{/js/model/graph/context.js}"></script>
 </body>
 </html>
