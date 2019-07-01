@@ -4,10 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("model/graph")
+@RequestMapping("model")
 public class GraphController {
-    @RequestMapping("index")
-    public String getIndex(){
+    @RequestMapping("graph/index")
+    public String getGraphIndex(){
+        return "model/graph/index";
+    }
+    @RequestMapping("graph/index")
+    public String getGraphIndex(){
         return "model/graph/index";
     }
 }
