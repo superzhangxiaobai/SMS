@@ -116,6 +116,7 @@ var menu=new Vue({
 			menu.submit();
 		},
 		submit:function(){
+			this.menu_form.isEnable=this.menu_form.isEnable?1:0;
 			axios({
 				url: ctxPath + 'sys/menu/addOrUpdate',
 				method: "post",

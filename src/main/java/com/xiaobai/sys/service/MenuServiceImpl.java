@@ -26,7 +26,7 @@ public class MenuServiceImpl extends BaseService<MenuInfo> {
     public Map<String,Object> getAll(SysParam param) {
         Map<String,Object> result=new HashMap<>();
         param.setTablename("t_menu");
-        param.setIsEnable(1);
+        param.setPageSize(1000);
         List<MenuInfo> list = mapper.getAll(param);
         result.put("data",list);
         //可加入分页, 总数等数据

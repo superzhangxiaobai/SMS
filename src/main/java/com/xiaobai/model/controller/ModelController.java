@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("model")
-public class GraphController {
-    @RequestMapping("graph/index")
+public class ModelController {
+    @RequestMapping("Graph/index")
     public String getGraphIndex(){
-        return "model/graph/index";
+        return "model/Graph/index";
     }
-    @RequestMapping("graph/index")
-    public String getGraphIndex(){
-        return "model/graph/index";
+    @RequestMapping("QRCode/index")
+    public String getQRCodeIndex(){
+        return "model/QRCode/index";
     }
 }

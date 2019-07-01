@@ -21,7 +21,7 @@ public class BaseDaoProvider {
             if(param.getIsEnable()!=null){
                 WHERE(" isEnable = #{isEnable, jdbcType=INTEGER}");
             }
-            ORDER_BY("id desc ");
+            //ORDER_BY("id desc ");
         }}.toString();
         sql+="limit "+((param.getPageNo()-1)*param.getPageSize())+","+param.getPageSize();
         return sql;

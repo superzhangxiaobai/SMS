@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link th:include="base/base::header ('菜单管理')" />
+</head>
+<body>
+<div class="ivu-input-wrapper ivu-input-wrapper-default ivu-input-type">
+    <input id="text" class="ivu-input ivu-input-default" type="text" value="http://192.168.101.208:8088/SMS" style="width:50%" /><br />
+</div>
+<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+<script th:src="@{/js/model/QRCode/qrcode.min.js}"></script>
+<script type="text/javascript">
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 100,
+		height : 100,
+		background: "red",    //背景颜色
+		foreground: "#000000",    //前景颜色
+	});
+
+	function makeCode () {
+		var elText = document.getElementById("text");
+
+		if (!elText.value) {
+			alert("Input a text");
+			elText.focus();
+			return;
+		}
+
+		qrcode.makeCode(elText.value);
+	}
+
+	makeCode();
+
+	$("#text").
+	on("blur", function () {
+		makeCode();
+	}).
+	on("keydown", function (e) {
+		if (e.keyCode == 13) {
+			makeCode();
+		}
+	});
+</script>
+</body>
+</html>

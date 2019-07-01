@@ -26,7 +26,7 @@
 	</p>-->
 	<div id="index">
         <Layout>
-            <Header>
+            <!--<Header>
                 <i-menu mode="horizontal" width="auto" :theme="theme" >
                     <div class="logo">
                         <img th:src="@{/imgs/system/logo2.png}" width="50" height="50">
@@ -38,18 +38,38 @@
                                 <Icon :type="item.icon"></Icon>
                                 {{item.toolname}}
                             </Menu-item>
-                            <!--<Menu-item>
+                            &lt;!&ndash;<Menu-item>
                                 <i-switch v-model="isDark" size="large" @on-change="changeTheme">
                                     <span slot="open">深色</span>
                                     <span slot="close">浅色</span>
                                 </i-switch>
-                            </Menu-item>-->
+                            </Menu-item>&ndash;&gt;
                         </i-menu>
                     </div>
                 </i-menu>
-            </Header>
+            </Header>-->
             <Layout>
                 <Sider :style="{background:bg,}" collapsible :collapsed-width="78" v-model="isCollapsed">
+                    <div class="logo" style="background: red;">
+                        <img th:src="@{/imgs/system/logo2.png}" width="100" height="100">
+                        <span :style="{color:font_color}">你好,<span sec:authentication="name"></span></span>
+                    </div>
+                    <!--<i-menu mode="horizontal" width="auto" :theme="theme" >
+                        <div class="tools">
+                            <i-menu mode="horizontal" :theme="theme" @on-select="selectTool">
+                                <Menu-item v-for="(item,index) in tools" :name="item.id" >
+                                    <Icon :type="item.icon"></Icon>
+                                    {{item.toolname}}
+                                </Menu-item>
+                                &lt;!&ndash;<Menu-item>
+                                    <i-switch v-model="isDark" size="large" @on-change="changeTheme">
+                                        <span slot="open">深色</span>
+                                        <span slot="close">浅色</span>
+                                    </i-switch>
+                                </Menu-item>&ndash;&gt;
+                            </i-menu>
+                        </div>
+                    </i-menu>-->
                     <i-menu :class="menuitemClasses" width="auto" ref="menus" :theme="theme" v-for="(item,index) in menus" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
                         <Submenu :name="item.id" >
                             <template slot="title">
@@ -64,10 +84,6 @@
                     </i-menu>
                 </Sider>
                 <Layout>
-                    <!--<Header :style="{padding: 0}" class="layout-header-bar">
-                        <i-button type="info" ghost shape="circle" icon="md-menu" @click="collapsedSider" :style="{margin: '5px 10px'}" size="24"></i-button>
-                        <i-button type="info" ghost shape="circle" icon="md-refresh" @click="refreshCurrentTab" :style="{margin: '5px 10px'}" size="24"></i-button>
-                    </Header>-->
                     <Content>
                         <Tabs type="card" :value="active_tab" @on-click="selectTab" @on-tab-remove="removeTab">
                             <Tab-pane v-for="(item,index) in tabs" v-if="item.show" :label="item.tabname" :name="item.id" :closable="item.closable">

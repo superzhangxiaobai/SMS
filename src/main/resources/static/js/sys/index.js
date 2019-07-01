@@ -92,10 +92,12 @@ var index=new Vue({
                 if(this.menus[i].id==menu_name){
                     return this.menus[i];
                 }
-                for(var j=0; j<this.menus[i].sub.length; j++){
-                    if(this.menus[i].sub[j].id==menu_name){
-						return this.menus[i].sub[j];
-                    }
+                if(this.menus[i].sub){
+					for(var j=0; j<this.menus[i].sub.length; j++){
+						if(this.menus[i].sub[j].id==menu_name){
+							return this.menus[i].sub[j];
+						}
+					}
 				}
             }
 		},
