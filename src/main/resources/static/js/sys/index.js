@@ -2,10 +2,11 @@ var index=new Vue({
 	el : '#index',
 	data : {
 		theme:'dark',//深色主题:#515A6E 浅色#fff
-		isDark:true,
+		theme2:'light',//深色主题:#515A6E 浅色#fff
+		isDark:false,
 		active_menu:0,//
 		active_tab:0,
-		font_color:'rgba(255,255,255,0.7)',
+		font_color:'#515A6E',
 		open_menu:[],//
 		containerhei:0,//iframe高度
 		closable:'closable',
@@ -21,8 +22,16 @@ var index=new Vue({
 		isCollapsed: false//是否折叠
 	},
 	computed: {
+		menuIcon () {
+			return this.isCollapsed ? 'ios-apps' : 'ios-apps-outline';
+		},
 		//折叠显示的icon
-		menuitemClasses:function () {
+		menuitemClasses: function () {
+			if(this.isCollapsed) {
+				$(".ivu-menu-submenu-title-icon").css("display", "none");
+			}else {
+				$(".ivu-menu-submenu-title-icon").css("display", "");
+			}
 			return [
 				'menu-item',
 				this.isCollapsed ? 'collapsed-menu' : ''
@@ -30,18 +39,32 @@ var index=new Vue({
 		}
 	},
 	methods:{
+		collapsedSider () {
+			this.$refs.side1.toggleCollapse();
+		},
+		closeCurrentPage () {//关闭当前页
+			index.tabs.find(function(item, i){
+				if(index.active_tab==item.id){
+					index.active_tab=0;
+					index.tabs[i].show=false;
+				}
+			});
+		},
+		refreshCurrentPage () {//刷新当前页
+			document.getElementById('iframe'+index.active_tab).contentWindow.location.reload(true);
+		},
 		//刷新当前选中的菜单栏
 		refreshCurrentTab:function(){
 			this.$Message.success('刷新成功');
 		},
-		changeTheme:function(data){
+		changeTheme2:function(data){
 			if(data){
-				index.theme='dark';
-				index.bg="#515A6E";
+				index.theme2='dark';
+				// index.bg="#515A6E";
 				index.font_color='rgba(255,255,255,0.7)';
 			}else {
-				index.theme='light';
-				index.bg="#fff";
+				index.theme2='light';
+				// index.bg="#fff";
 				index.font_color='#515A6E';
 			}
 		},
@@ -67,6 +90,9 @@ var index=new Vue({
 		},
 		//选中的子菜单
 		selectMenu:function(menu_name){
+			if(index.isCollapsed){//打开菜单
+				index.isCollapsed=false;
+			}
 			this.active_menu=menu_name;
 			var menu=this.getMenuItem(menu_name);
 			var allowAddTab=this.allowAddTab(menu.id);

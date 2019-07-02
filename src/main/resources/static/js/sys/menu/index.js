@@ -238,64 +238,6 @@ var menu=new Vue({
 	}
 });
 $(function () {
-	/*menu.menu_datas=result.data;
-	var memu_list=common.filterArrayToTree(result.data,0);
-	var root=[{
-		icon: "ios-apps",
-		id: 0,
-		title: "菜单管理",
-		menuname:"菜单管理",
-		pid: '',
-		children:memu_list,
-		render: (h, {root, node, data}) => {
-			return h('span', {
-				style: {
-					display: 'inline-block',
-					width: '100%',
-				}
-			}, [
-				h('span', [
-					h('Icon', {
-						props: {
-							type: 'ios-folder-outline'
-						},
-						style: {
-							marginRight: '8px'
-						}
-					}),
-					h('span', data.title)
-				]),
-				h('span', {
-					style:{
-						display: 'inline-block',
-						marginLeft: '200px',
-					}
-				},'链接'),
-				h('span', {
-					style: {
-						display: 'inline-block',
-						float: 'right',
-						marginRight: '32px',
-					}
-				}, [
-					h('Button', {
-						props: Object.assign({}, this.buttonProps, {
-							icon: 'ios-add',
-							type: 'primary',
-							size: 'small',
-						}),
-						style: {
-						},
-						on: {
-							click: () => {
-								menu.menu_add(root, node, data);
-							}
-						}
-					},'新增')
-				])
-			]);
-		},
-	}];
-	menu.menus=root;*/
 	menu.getMenus();
+	menu.containerhei=$(".container-fluid").height()-35;
 });

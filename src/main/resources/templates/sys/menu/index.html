@@ -11,13 +11,16 @@
     <div id="app">
         <div class="layout-content">
             <i-row>
-                <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24">
+                <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
                     <i-button sec:authorize="hasRole('sys:menu:add')" shape="circle" icon="ios-refresh" @click="getMenus"></i-button>
                 </i-col>
             </i-row>
             <i-row>
-                <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24">
-                    <Tree :data="menus" :render="renderContent"></Tree>
+                <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
+                    <Tree :data="menus" :render="renderContent" :height="containerhei"></Tree>
+                </i-col>
+                <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
+
                 </i-col>
             </i-row>
         </div>

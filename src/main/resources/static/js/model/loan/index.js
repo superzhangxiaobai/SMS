@@ -174,5 +174,5 @@ var app=new Vue({
 
 $(function () {
 	app.getData();
-	app.containerhei=$(".container-fluid").height()-35;
+	app.containerhei=$(".container-fluid").height()-70;
 });

@@ -25,78 +25,61 @@
 		 <a th:href="@{/admin}">管理页面</a> to admin page.
 	</p>-->
 	<div id="index">
-        <Layout>
-            <!--<Header>
-                <i-menu mode="horizontal" width="auto" :theme="theme" >
-                    <div class="logo">
-                        <img th:src="@{/imgs/system/logo2.png}" width="50" height="50">
-                        <span :style="{color:font_color}">你好,<span sec:authentication="name"></span></span>
-                    </div>
-                    <div class="tools">
-                        <i-menu mode="horizontal" :theme="theme" @on-select="selectTool">
-                            <Menu-item v-for="(item,index) in tools" :name="item.id" >
-                                <Icon :type="item.icon"></Icon>
-                                {{item.toolname}}
-                            </Menu-item>
-                            &lt;!&ndash;<Menu-item>
-                                <i-switch v-model="isDark" size="large" @on-change="changeTheme">
-                                    <span slot="open">深色</span>
-                                    <span slot="close">浅色</span>
-                                </i-switch>
-                            </Menu-item>&ndash;&gt;
-                        </i-menu>
-                    </div>
+        <Layout :style="{minHeight: '100vh'}">
+            <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
+                <i-menu :class="menuitemClasses" width="auto" ref="menus" :theme="theme" v-for="(item,index) in menus" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
+                    <Submenu :name="item.id" >
+                        <template slot="title">
+                            <Icon :type="item.icon"></Icon>
+                            <span>{{item.menuname}}</span>
+                        </template>
+                        <Menu-item v-for="(subitem,subindex) in item.sub" :name="subitem.id">
+                            <Icon :type="subitem.icon"></Icon>
+                            <span>{{subitem.menuname}}</span>
+                        </Menu-item>
+                    </Submenu>
                 </i-menu>
-            </Header>-->
+            </Sider>
             <Layout>
-                <Sider :style="{background:bg,}" collapsible :collapsed-width="78" v-model="isCollapsed">
-                    <div class="logo" style="background: red;">
-                        <img th:src="@{/imgs/system/logo2.png}" width="100" height="100">
-                        <span :style="{color:font_color}">你好,<span sec:authentication="name"></span></span>
-                    </div>
-                    <!--<i-menu mode="horizontal" width="auto" :theme="theme" >
+                <Header>
+                    <i-menu mode="horizontal" width="auto" :theme="theme2" >
+                        <Button-group>
+                            <i-button @click.native="collapsedSider" :icon="menuIcon" size="large" :type="isDark?'primary':'default'">缩放</i-button>
+                            <i-button  @click.native="refreshCurrentPage" icon="ios-refresh" size="large" :type="isDark?'primary':'default'">刷新</i-button>
+                            <i-button @click.native="closeCurrentPage" icon="ios-close" size="large" :type="isDark?'primary':'default'">关闭</i-button>
+                        </Button-group>
                         <div class="tools">
-                            <i-menu mode="horizontal" :theme="theme" @on-select="selectTool">
+                            <i-menu mode="horizontal" :theme="theme2" @on-select="selectTool">
+                                <Menu-item>
+                                    <img th:src="@{/imgs/system/logo2.png}" width="50" height="50">
+                                    <span :style="{color:font_color}"><span sec:authentication="name"></span></span>
+                                </Menu-item>
+                                <Menu-item>
+                                    <i-switch v-model="isDark" size="large" @on-change="changeTheme2">
+                                        <span slot="open">深色</span>
+                                        <span slot="close">浅色</span>
+                                    </i-switch>
+                                </Menu-item>
                                 <Menu-item v-for="(item,index) in tools" :name="item.id" >
                                     <Icon :type="item.icon"></Icon>
                                     {{item.toolname}}
                                 </Menu-item>
-                                &lt;!&ndash;<Menu-item>
-                                    <i-switch v-model="isDark" size="large" @on-change="changeTheme">
-                                        <span slot="open">深色</span>
-                                        <span slot="close">浅色</span>
-                                    </i-switch>
-                                </Menu-item>&ndash;&gt;
                             </i-menu>
                         </div>
-                    </i-menu>-->
-                    <i-menu :class="menuitemClasses" width="auto" ref="menus" :theme="theme" v-for="(item,index) in menus" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
-                        <Submenu :name="item.id" >
-                            <template slot="title">
-                                <Icon :type="item.icon"></Icon>
-                                <span>{{item.menuname}}</span>
-                            </template>
-                            <Menu-item v-for="(subitem,subindex) in item.sub" :name="subitem.id">
-                                <Icon :type="subitem.icon"></Icon>
-                                <span>{{subitem.menuname}}</span>
-                            </Menu-item>
-                        </Submenu>
                     </i-menu>
-                </Sider>
-                <Layout>
-                    <Content>
-                        <Tabs type="card" :value="active_tab" @on-click="selectTab" @on-tab-remove="removeTab">
-                            <Tab-pane v-for="(item,index) in tabs" v-if="item.show" :label="item.tabname" :name="item.id" :closable="item.closable">
-                                <div class="layout-content-center">
-                                    <iframe :src="item.content_url" :style="{height:containerhei + 'px'}"></iframe>
-                                </div>
-                            </Tab-pane>
-                        </Tabs>
-                    </Content>
-                    <Footer>
-                        <div class="footer">© 2019 中联今通. 版权所有</div>
-                    </Footer>
-                </Layout>
+                </Header>
+                <Content>
+                    <Tabs type="card" :value="active_tab" @on-click="selectTab" @on-tab-remove="removeTab">
+                        <Tab-pane v-for="(item,index) in tabs" v-if="item.show" :label="item.tabname" :name="item.id" :closable="item.closable">
+                            <div class="layout-content-center">
+                                <iframe :id="'iframe'+item.id"  :src="item.content_url" :style="{height:containerhei + 'px'}"></iframe>
+                            </div>
+                        </Tab-pane>
+                    </Tabs>
+                </Content>
+                <Footer>
+                    <div class="footer">© 2019 中联今通. 版权所有</div>
+                </Footer>
             </Layout>
         </Layout>
 	</div>
