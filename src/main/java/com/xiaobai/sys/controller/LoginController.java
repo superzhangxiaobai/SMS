@@ -65,5 +65,8 @@ public class LoginController {
 	public String admin() {
 		return "sys/admin";
 	}
+
+
+
 }
 

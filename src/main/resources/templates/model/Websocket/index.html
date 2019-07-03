@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link th:include="base/base::header ('菜单管理')" />
+</head>
+<body>
+
+<div id="app">
+    <i-input v-model="tip" placeholder="功能操作" type="textarea"/>
+</div>
+<input id="username" th:value="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" hidden/>
+<input id="username2" th:value="${currentuser}" hidden/>
+<script>
+    var model=new Vue({
+		el: '#app',
+		data: {
+			tip:'可以选择多个账号, 发推送消息给别人'
+        },
+		methods:{}
+    });
+    var socket;
+    var username=$("#username").val();
+    if(typeof(WebSocket)=='undefined'){
+    	console.log("浏览器不支持websocket");
+    }else {
+    	console.log(reqpath);
+		//实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+		//等同于socket = new WebSocket("ws://localhost:8083/checkcentersys/websocket/username");
+		socket = new WebSocket("ws://192.168.101.208:8088/SMS/websocket/"+username);
+		//打开事件replace("http","ws")
+		socket.onopen = function() {
+			console.log("Socket 已打开");
+			socket.send("这是来自客户端的消息" + username +"\n"+ new Date().format("yyyy-MM-dd hh:mm:ss"));
+		};
+		//获得消息事件
+		socket.onmessage = function(msg) {
+			model.$Notice.open({
+				title: '消息提示',
+				top:1000,
+				desc: msg.data,
+				duration:0
+			});
+			//发现消息进入    开始处理前端触发逻辑
+		};
+		//关闭事件
+		socket.onclose = function() {
+			console.log("Socket已关闭");
+		};
+		//发生了错误事件
+		socket.onerror = function() {
+			alert("Socket发生了错误");
+			//此时可以尝试刷新页面
+		}
+
+
+		axios({
+			url: ctxPath + 'base/websocket/push/'+username,
+			method: "post",
+			params:{user:username,message:'这是controller请求推送'},
+			paramsSerializer: function(params) {
+				return common.stringify(params);
+			}
+		}).then(res => {
+			model.$Notice.open({
+				title: '消息提示',
+				top:1000,
+				desc: 'controller推送成功',
+				duration:0
+			});
+		}).then( data => {
+			model.$Notice.open({
+				title: '消息提示',
+				top:1000,
+				desc: 'controller推送出错',
+				duration:0
+			});
+		})
+    }
+</script>
+</body>
+</html>

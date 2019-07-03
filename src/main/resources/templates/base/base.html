@@ -28,6 +28,24 @@
 		/*<![CDATA[*/
 		ctxPath = /*[[@{/}]]*/ '';
 		/*]]>*/
+		/*<![CDATA[*/
+		reqpath = /*[[${#httpServletRequest.requestURL}]]*/ '';
+		/*]]>*/
+
+		/*<![CDATA[*/
+		scheme = /*[[${#httpServletRequest.getScheme()}]]*/ '';
+		/*]]>*/
+
+		/*<![CDATA[*/
+		servername = /*[[${#httpServletRequest.getServerName()}]]*/ '';
+		/*]]>*/
+
+		/*<![CDATA[*/
+		serverport = /*[[${#httpServletRequest.getServerPort()}]]*/ '';
+		/*]]>*/
+
+		/*<![CDATA[*/
+		serverpath = /*[[${#httpServletRequest.getContextPath()}]]*/ '';
     </script>
 </head>
 <body>

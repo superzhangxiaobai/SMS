@@ -2,7 +2,9 @@ package com.xiaobai.sys.base;
 
 import com.xiaobai.util.DateUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -39,6 +41,14 @@ public class BaseController {
                 setValue(date==null?null:new Timestamp(date.getTime()));
             }
         });
+    }
+
+    //消息订阅
+    @Autowired
+    private JmsTemplate jmsTemplate;
+    public String joinQueue(String item) {
+        jmsTemplate.convertAndSend("msgbox", item);
+        return item;
     }
 
 }
