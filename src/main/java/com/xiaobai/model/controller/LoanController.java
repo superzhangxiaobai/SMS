@@ -26,7 +26,6 @@ public class LoanController extends BaseController {
     @ResponseBody
     public Map<String,Object> getAll(SysParam param){
         Map<String,Object> result= service.getAll(param);
-        super.joinQueue("helllo");
         return result;
     }
     @RequestMapping("addOrUpdate")

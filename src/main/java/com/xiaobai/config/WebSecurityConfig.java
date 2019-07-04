@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//请求权限配置
 		http.authorizeRequests()
 		//指定了/和/home不需要任何认证就可以访问，
-		.antMatchers("/","/login","/app/login").permitAll()
+		.antMatchers("/","/login","/app/login","/dd/sendMsg").permitAll()
 		//任何请求，登录后方可访问。
 		.anyRequest().authenticated() 
 		//登陆界面参数
