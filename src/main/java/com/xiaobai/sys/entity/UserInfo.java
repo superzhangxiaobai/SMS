@@ -34,6 +34,7 @@ public class UserInfo implements Serializable {
 	// 身份证号
 	@Column(name = "cardid")
 	private String cardid;
+	//图片地址
 	@Column(name = "cardpic")
 	private String cardpic;
 	// 邮箱地址
@@ -60,6 +61,11 @@ public class UserInfo implements Serializable {
 	// 是否激活
 	@Column(name = "isactive")
 	private Integer isactive;
+	public UserInfo(){}
+	public UserInfo(Long id,String loginname) {
+		this.id = id;
+		this.loginname = loginname;
+	}
 
 	public String getCardpic() {
 		return cardpic;

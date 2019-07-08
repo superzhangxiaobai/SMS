@@ -27,6 +27,10 @@ public abstract class BaseService<T> {
     public List<T> selectAll() {
         return getMapper().selectAll();
     }
+    @Transactional(readOnly = true)
+    public T selectOne(T t) {
+        return getMapper().selectOne(t);
+    }
 
     /**
      * 通用型新增删除, 但必须要有id

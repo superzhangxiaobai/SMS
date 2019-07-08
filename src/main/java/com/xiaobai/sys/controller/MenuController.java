@@ -24,6 +24,11 @@ public class MenuController extends BaseController {
     public String getAllMenuIndex(){
         return "sys/menu/index";
     }
+    @RequestMapping("index2")
+    //@Secured({"ROLE_ADMIN"})//只能有管理人员操作菜单页面,硬编码不适合
+    public String getAllMenuIndex2(){
+        return "sys/menu/index2";
+    }
     @RequestMapping("getAll")
     @ResponseBody
     public Map<String,Object> getAll(SysParam param){

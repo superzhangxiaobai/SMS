@@ -100,7 +100,7 @@ var menu=new Vue({
 				url:'',
 				menuname:'',
 				pid:data.id,
-				isEnable:true,
+				isEnable:0,
 			};
 			this.menu_form=newnode;
 			this.is_show=true;
@@ -123,6 +123,7 @@ var menu=new Vue({
 				params:this.menu_form}).then(res => {
 				return res.data
 			}).then( data => {
+				this.is_show=false;
 				this.getMenus();
 				this.$Message.success(data.msg);
 			})

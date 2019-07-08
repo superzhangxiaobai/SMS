@@ -11,7 +11,7 @@ public class Sign {
     @GeneratedValue(strategy=GenerationType.IDENTITY,generator="Mysql")
     private Long id;
     @Column(name = "userid")
-    private Integer userid;
+    private Long userid;
     @Column(name = "signdate")
     private Date signdate;
     @Column(name = "createtime",updatable = false)
@@ -51,11 +51,19 @@ public class Sign {
                 '}';
     }
 
-    public Integer getUserid() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

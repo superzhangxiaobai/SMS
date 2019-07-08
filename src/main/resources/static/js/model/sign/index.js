@@ -21,42 +21,51 @@ var app=new Vue({
 				align: 'center'
 			},
 			{
-				title: '用户名',
+				title: '打卡人',
 				key: 'username',
+				align: 'center'
 			},
 			{
-				title: '用户标识',
-				key: 'userid',
+				title: '打卡时间',
+				key: 'createtime',
 			},
 			{
-				title: '预支金额',
-				key: 'loan',
+				title: '状态',
+				key: 'status',
 			},
 			{
-				title: '实际预支',
-				key: 'address',
+				title: '工作时长',
+				key: 'workhour',
 			},
 			{
-				title: '声请人',
-				key: 'creator',
+				title: '工作地点',
+				key: 'workplace',
 			},
-			{
+			/*{
 				title: '申请时间',
 				key: 'createtime',
 				render:(h,params)=>{
 					return h("span",params.row.createtime?params.row.createtime.split(' ')[0]:'');
 				}
+			},*/
+			{
+				title: '所在项目',
+				key: 'projectid',
 			},
 			{
-				title: '预支成功',
-				key: 'ispay',
+				title: '确认人',
+				key: 'confirmor',
 			},
 			{
-				title: '预支确认',
-				key: 'loaner',
-			},{
 				title: '财务确认',
 				key: 'confirmor',
+			},
+			{
+				title: '是否生效',
+				key: 'iseffective',
+				render:(h,params)=>{
+					return h("span",{style:{'color':params.row.iseffective?'green':'red'}},params.row.iseffective?'是':'否');
+				}
 			},
 			{
 				title: '备注',
@@ -137,7 +146,7 @@ var app=new Vue({
 		app_form_submit:function(){
 			//更新用户信息
 			axios({
-				url: ctxPath + 'model/loan/addOrUpdate',
+				url: ctxPath + 'model/sign/addOrUpdate',
 				method: "post",
 				params:this.app_form,
 				paramsSerializer: function(params) {
@@ -148,6 +157,7 @@ var app=new Vue({
 			}).then( data => {
 				app.getData();
 				app.$Message.success(data.msg);
+				app.is_show_app=false;
 			})
 		},
 		getPY:function(){
@@ -156,7 +166,7 @@ var app=new Vue({
 		},
 		getData:function () {
 			axios({
-				url: ctxPath + 'model/loan/getAll',
+				url: ctxPath + 'model/sign/getAll',
 				method: "post",
 				params:app.param})
 				.then(function (response) {

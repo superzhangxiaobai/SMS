@@ -11,12 +11,12 @@
     <div id="app">
         <div class="layout-content">
             <i-row>
-                <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
+                <i-col span="12" :xs="18" :sm="18" :md="12" :lg="12">
                     <i-button sec:authorize="hasRole('sys:menu:add')" shape="circle" icon="ios-refresh" @click="getMenus"></i-button>
                 </i-col>
             </i-row>
             <i-row>
-                <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
+                <i-col span="12" :xs="18" :sm="18" :md="12" :lg="12">
                     <Tree :data="menus" :render="renderContent" :height="containerhei"></Tree>
                 </i-col>
                 <i-col span="12" :xs="12" :sm="12" :md="12" :lg="12">
@@ -44,7 +44,7 @@
                     </i-select>
                 </form-item>
                 <form-item label="启用状态">
-                    <i-switch v-model="menu_form.isEnable" >
+                    <i-switch v-model="menu_form.isEnable" :true-value="1" :false-value="0">
                         <span slot="open" >是</span>
                         <span slot="close" >否</span>
                     </i-switch>
