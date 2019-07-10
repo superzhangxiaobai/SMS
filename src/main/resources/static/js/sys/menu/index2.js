@@ -11,7 +11,7 @@ var menu=new Vue({
 		menu_form:{},
 		menu_columns:[
 			{
-				// type: 'expand',
+				// type: 'expand',//需要调用组件 MenuExpand
 				title:'',
 				align: 'center',
 				render: (h, params) => {
@@ -21,7 +21,7 @@ var menu=new Vue({
 							marginLeft:(level-1)*30+'px'
 						},
 						props: {
-							type:level==3?'':params.row.isDown?'ios-arrow-down':'ios-arrow-forward',
+							type:level==3?'':params.row.isExpand?'ios-arrow-down':'ios-arrow-forward',
 						},
 						on: {
 							click: () => { menu.onExpand(params.row,level) }
@@ -94,7 +94,7 @@ var menu=new Vue({
 							},
 							on: {
 								click: () => {
-									user.user_upd(params);
+									menu.menu_upd(params);
 								}
 							}
 						},'修改'),
@@ -110,7 +110,7 @@ var menu=new Vue({
 							},
 							on: {
 								click: () => {
-									user.user_del(params);
+									menu.menu_del(params);
 								}
 							}
 						},'删除')
@@ -132,21 +132,21 @@ var menu=new Vue({
 		icons:['ios-image-outline','ios-radio-button-off','ios-add','ios-alarm-outline','ios-analytics-outline','ios-apps-outline','ios-at-outline','ios-basket-outline','ios-boat-outline','ios-book-outline','ios-body-outline','ios-bowtie-outline','ios-build-outline','ios-calculator-outline','ios-bus-outline','ios-chatboxes-outline','ios-chatbubbles-outline','ios-close-circle-outline','ios-cloud-outline','ios-cloud-done-outline','ios-cloud-download-outline','ios-cloud-upload-outline','ios-cloudy-night-outline','ios-contacts-outline','ios-desktop-outline','ios-image-outline','ios-key-outline','ios-lock-outline','ios-nuclear-outline','ios-paper-outline']
 	},
 	methods:{
-		menu_add:function(root, node, data){
+		menu_add:function(){
 			var newnode={
-				p_menuname:node.node.menuname,
+				p_menuname:'',
 				id:"",
 				url:'',
 				menuname:'',
-				pid:data.id,
+				pid:'',
 				isEnable:0,
 			};
 			this.menu_form=newnode;
 			this.is_show=true;
 		},
-		menu_upd:function(root, node, data){
-			this.menu_form=common.deepCopy(data);
-			this.menu_form.p_menuname=root[node.parent].node.menuname;
+		menu_upd:function(param){
+			this.menu_form=common.deepCopy(param.row);
+			this.menu_form.p_menuname=menu.menus.filter(item=>item.id==menu.menus[param.index].pid)[0].menuname;
 			this.is_show=true;
 		},
 		menu_del:function(root, node, data){
@@ -170,13 +170,32 @@ var menu=new Vue({
 		chooseIcon:function(){
 			menu.is_show_icon=true;
 		},
-		//弃用方法 ztt
-		onExpand:function(params,status){
-			console.log("-------------");
+		onExpand: function (params, level) {
 			//判断当前行是否展开，如果未展开，执行以下方法，先展开再请求接口加载到tabledata中当前data index 后
 			//优化请求, 如果已存在数据, 不用请求 没有子级数据, 显示down 按钮
-			if(!this.menus[params._index].isDown){
-				axios({
+			if (!this.menus[params._index].isExpand) {
+				$.ajax({
+					url: ctxPath + 'sys/menu/getAll',
+					type: "post",async:false,/**/
+					data:{pid:menu.menus[params._index].id},
+					success:function (data) {
+						Vue.set(menu.menus[params._index], 'isExpand', true);//改变对象的值, 最好使用set
+						let newArrayData = data.data;
+						menu.menus[params._index].total = newArrayData.length; //将展开操作查询到的数据总条数加到当前行数据的totals上
+						/*newArrayData.map( item =>{
+							item.isExpand = true;
+							item.upLevelIndex = params.index;
+						});*/
+						newArrayData.map( (value, key) =>{
+							menu.menus.splice(params._index + key + 1, 0, value);
+						});
+					},
+					error:function (xhr,status,error) {
+						menu.$Message.error(error.response.data.message);
+					}
+				});
+				//异步await 不生效, 待优化
+				/*axios.post({
 					url: ctxPath + 'sys/menu/getAll',
 					method: "post",
 					params:{pid:this.menus[params._index].id}
@@ -184,21 +203,22 @@ var menu=new Vue({
 					return res.data
 				}).then( data => {
 					this.menus[params._index].isDown = true;
+					this.menus[params._index].isExpand = true;
 					let newArrayData = data.data;
 					this.menus[params._index].total = newArrayData.length; //将展开操作查询到的数据总条数加到当前行数据的totals上
-					newArrayData.map( item =>{
+					/!*newArrayData.map( item =>{
 						item.isExpand = true;
 						item.upLevelIndex = params.index;
-					});
+					});*!/
 					newArrayData.map( (value, key) =>{
 						this.menus.splice(params._index + key + 1, 0, value);
 					});
 				}).catch(function (error) {
 					menu.$Message.error(error.response.data.message);
-				});
-			}else{//如果当前行已展开，则隐藏
-				this.menus[params._index].isDown = false;
-				this.menus.splice(params._index + 1, params.total?params.total:0);
+				});*/
+			} else {//如果当前行已展开，则隐藏
+				Vue.set(menu.menus[params._index], 'isExpand', false);
+				this.menus.splice(params._index + 1, params.total ? params.total : 0);
 			}
 		},
 		getMenus:function () {

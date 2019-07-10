@@ -12,6 +12,7 @@
                 <div class="layout-content">
                     <i-row>
                         <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24">
+                            <i-button sec:authorize="hasRole('sys:menu:add')" shape="circle" icon="ios-add" @click="menu_add"></i-button>
                             <i-button sec:authorize="hasRole('sys:menu:add')" shape="circle" icon="ios-refresh" @click="getMenus"></i-button>
                         </i-col>
                     </i-row>
@@ -33,6 +34,12 @@
                         </form-item>
                         <form-item label="父级菜单">
                             <i-input v-model="menu_form.p_menuname" placeholder="菜单名称" readonly></i-input>
+                            <i-select v-model="menu_form.pid" style="width:200px">
+                                <i-option v-for="item in menus" :value="item.id" :key="item.id" v-if="item.type!='F'" :label="item.menuname">
+                                    <span v-if="!item.pid" style="float:right;color:#CCCCCC">根目录</span>
+                                    <span><span v-if="item.pid">--</span>{{item.menuname}}</span>
+                                </i-option>
+                            </i-select>
                         </form-item>
                         <form-item label="菜单图标">
                             <i-input v-model="menu_form.icon" placeholder="菜单图标" readonly icon="ios-image-outline" @on-click="chooseIcon"></i-input>
