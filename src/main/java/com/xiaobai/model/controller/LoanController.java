@@ -28,6 +28,12 @@ public class LoanController extends BaseController {
         Map<String,Object> result= service.getAll(param);
         return result;
     }
+    @RequestMapping("getAllMap")
+    @ResponseBody
+    public Map<String,Object> getAllMap(Map<String,Object> param){
+        Map<String,Object> result= service.getAllMap(param);
+        return result;
+    }
     @RequestMapping("addOrUpdate")
     @ResponseBody
     public Map<String,Object> addOrUpdate(Loan entity){

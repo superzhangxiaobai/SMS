@@ -29,7 +29,17 @@ public class LoanService extends BaseService<Loan> {
         List<Loan> list = mapper.getAll(param);
         result.put("data",list);
         result.put("total",mapper.getCount(param));
-        //可加入分页, 总数等数据
+        return result;
+    }
+
+    public Map<String,Object> getAllMap(Map<String,Object> param) {
+        param.put("TABLE_NAME","t_loan");
+        param.put("COLUMNS","t_loan.*");
+        param.put("INNER_JOIN","t_user on t_user.id=t_loan.userid");
+        List<Map<String, Object>> list = mapper.getAllMap(param);
+        Map<String,Object> result=new HashMap<>();
+        result.put("data",list);
+        result.put("total",0);
         return result;
     }
 }

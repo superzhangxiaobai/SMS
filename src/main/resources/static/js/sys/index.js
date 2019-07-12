@@ -21,6 +21,16 @@ var index=new Vue({
 		bg:'#515A6E',
 		isCollapsed: false//是否折叠
 	},
+	watch:{
+		isCollapsed:function(status){
+			if(status){
+				console.log(1)
+				this.$nextTick(()=>{
+					this.$refs.menus.updateActiveName();
+				});
+			}
+		}
+	},
 	computed: {
 		menuIcon () {
 			return this.isCollapsed ? 'ios-apps' : 'ios-apps-outline';
@@ -40,6 +50,7 @@ var index=new Vue({
 	},
 	methods:{
 		collapsedSider () {
+			console.log(this.isCollapsed);
 			this.$refs.side1.toggleCollapse();
 		},
 		closeCurrentPage () {//关闭当前页

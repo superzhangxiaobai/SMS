@@ -22,6 +22,10 @@ public class ModelController {
     public String getEmailIndex(){
         return "model/Email/index";
     }
+    @RequestMapping("Grid3D/index")
+    public String getGrid3DIndex(){
+        return "model/Grid3D/index";
+    }
     @Autowired
     private BaseEmail baseEmailService;
     @RequestMapping("Email/send")

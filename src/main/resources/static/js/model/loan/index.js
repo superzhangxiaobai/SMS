@@ -156,7 +156,7 @@ var app=new Vue({
 		},
 		getData:function () {
 			axios({
-				url: ctxPath + 'model/loan/getAll',
+				url: ctxPath + 'model/loan/getAllMap',
 				method: "post",
 				params:app.param})
 				.then(function (response) {

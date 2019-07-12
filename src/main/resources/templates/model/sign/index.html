@@ -11,7 +11,7 @@
     <div id="app">
         <i-row :gutter="10">
             <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24" span="24">
-                用户名:<i-input v-model="param.username" placeholder="用户名" style="width:100px" @on-change="getData"/>
+                用户名:<i-input v-model="param.creator" placeholder="用户名" style="width:100px" @on-change="getData"/>
                 <i-button shape="circle" icon="ios-refresh" @click="getData"></i-button>
                 <i-button type="success" icon="ios-add" size="small" @click="app_form_add">打卡</i-button>
                 <i-table highlight-row :columns="app_columns" :data="data" :loading="loading" :stripe="stripe" :height="containerhei"></i-table>

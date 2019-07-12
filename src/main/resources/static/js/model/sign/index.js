@@ -22,12 +22,22 @@ var app=new Vue({
 			},
 			{
 				title: '打卡人',
-				key: 'username',
+				key: 'creator',
 				align: 'center'
 			},
 			{
 				title: '打卡时间',
 				key: 'createtime',
+			},
+			{
+				title: '相对时间',
+				key: 'createtime',
+				render:(h,params)=>{
+					console.log(new Date(params.row.createtime).getTime());
+					return h("Time",
+						{props:Object.assign({},
+								{time:new Date(params.row.createtime).getTime()})});
+				}
 			},
 			{
 				title: '状态',
@@ -41,13 +51,6 @@ var app=new Vue({
 				title: '工作地点',
 				key: 'workplace',
 			},
-			/*{
-				title: '申请时间',
-				key: 'createtime',
-				render:(h,params)=>{
-					return h("span",params.row.createtime?params.row.createtime.split(' ')[0]:'');
-				}
-			},*/
 			{
 				title: '所在项目',
 				key: 'projectid',
