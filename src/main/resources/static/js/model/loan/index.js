@@ -13,6 +13,7 @@ var app=new Vue({
 			pageSize:15,
 			pageNo:1,
 			total:0,
+			searchStr:''
 		},
 		app_columns:[
 			{
@@ -23,10 +24,6 @@ var app=new Vue({
 			{
 				title: '用户名',
 				key: 'username',
-			},
-			{
-				title: '用户标识',
-				key: 'userid',
 			},
 			{
 				title: '预支金额',
@@ -158,7 +155,12 @@ var app=new Vue({
 			axios({
 				url: ctxPath + 'model/loan/getAllMap',
 				method: "post",
-				params:app.param})
+				params:{
+					pageSize:app.param.pageSize,
+					pageNo:app.param.pageNo,
+					status:app.param.status,
+					project:app.param.searchStr
+				}})
 				.then(function (response) {
 					app.data=response.data.data;
 					app.param.total=response.data.total;

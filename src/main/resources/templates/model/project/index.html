@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <link th:include="base/base::header ('项目管理')" />
+    <link rel="stylesheet" th:href="@{/css/sys/base/base.css}"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div id="app">
+        <i-row :gutter="10">
+            <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24" span="24">
+                项目名称:<i-input v-model="param.searchStr" placeholder="项目名称" style="width:100px" @on-change="getData"/>
+                <i-button shape="circle" icon="ios-refresh" @click="getData"></i-button>
+                <i-button type="success" icon="ios-add" size="small" @click="app_form_add">新增</i-button>
+                <i-table highlight-row :columns="app_columns" :data="data" :loading="loading" :stripe="stripe" :height="containerhei"></i-table>
+            </i-col>
+        </i-row>
+        <Page :total="param.total" show-sizer show-total @on-page-size-change="on_page_size_change" @on-change="on_change"/>
+        <Modal title="用户信息" v-model="is_show_app" class-name="vertical-center-modal" @on-ok="app_form_submit" ok-text="提交"><!--垂直居中样式-->
+            <i-form :model="app_form" :label-width="80" :rules="app_rules">
+                <form-item label="项目名称">
+                    <i-input v-model="app_form.project" placeholder="项目名称"></i-input>
+                </form-item>
+                <form-item label="所需工种">
+                    <i-select v-model="app_form.worktypeid" style="width:200px">
+                        <i-option v-for="item in typelist" :value="item.id" :key="item.id" :label="item.worktype">
+                        </i-option>
+                    </i-select>
+                </form-item>
+                <form-item label="项目地点">
+                    <i-input v-model="app_form.workplace" placeholder="项目地点"></i-input>
+                </form-item>
+                <form-item label="预计工期(天)">
+                    <i-input v-model="app_form.estimateduration" placeholder="预估工期"></i-input>
+                </form-item>
+                <form-item label="项目金额">
+                    <i-input v-model="app_form.projectamount" placeholder="项目金额"></i-input>
+                </form-item>
+                <form-item label="备注">
+                    <i-input type="textarea" v-model="app_form.memo" placeholder="备注"></i-input>
+                </form-item>
+            </i-form>
+        </Modal>
+    </div>
+
+</div>
+<script type="x-template" id="expandRow">
+    <div>
+        <Row style="margin-bottom: 16px;">
+            <Col span="6">
+                <span class="expand-key">项目名称: </span>
+                <span class="expand-value">{{ row.project }}</span>
+            </Col>
+            <Col span="6">
+                <span class="expand-key">实际工期: </span>
+                <span class="expand-value">{{ row.realduration }}</span>
+            </Col>
+            <Col span="6">
+                <span class="expand-key">项目金额: </span>
+                <span class="expand-value">{{ row.projectamount }}</span>
+            </Col>
+        </Row>
+        <Row>
+            <Col span="6">
+                <span class="expand-key">实际金额: </span>
+                <span class="expand-value">{{ row.realamount }}</span>
+            </Col>
+            <Col span="6">
+                <span class="expand-key">是否到账: </span>
+                <span class="expand-value">{{ row.ispay==0?'否':'是' }}</span>
+            </Col>
+            <Col span="6">
+                <span class="expand-key">确认人: </span>
+                <span class="expand-value">{{ row.confirmor }}</span>
+            </Col>
+        </Row>
+    </div>
+</script>
+<script th:src="@{/js/model/project/index.js}"></script>
+</body>
+</html>

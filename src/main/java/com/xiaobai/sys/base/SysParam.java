@@ -2,42 +2,32 @@ package com.xiaobai.sys.base;
 //自定义参数查询类
 public class SysParam {
     private String tablename;
-    private String name;
     private String id;
     private String pid;
-    private Integer isEnable;
     private Integer pageSize=15;
     private Integer pageNo=1;
     private String status;
-    private String username;
-    private String userid;
     private String roleid;
     private String menuid;
+    private String userid;
     private String password;
     private String newpassword;
+    private String username;
 
-    public Integer getPageSize() {
-        return pageSize;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getPageNo() {
-        return pageNo;
+    public String getMenuid() {
+        return menuid;
     }
 
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public String getTablename() {
-        return tablename;
-    }
-
-    public void setTablename(String tablename) {
-        this.tablename = tablename;
+    public void setMenuid(String menuid) {
+        this.menuid = menuid;
     }
 
     public String getPassword() {
@@ -72,36 +62,28 @@ public class SysParam {
         this.roleid = roleid;
     }
 
-    public String getMenuid() {
-        return menuid;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setMenuid(String menuid) {
-        this.menuid = menuid;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getPageNo() {
+        return pageNo;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
     }
 
-    public Integer getIsEnable() {
-        return isEnable;
+    public String getTablename() {
+        return tablename;
     }
 
-    public void setIsEnable(Integer isEnable) {
-        this.isEnable = isEnable;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTablename(String tablename) {
+        this.tablename = tablename;
     }
 
     public String getId() {

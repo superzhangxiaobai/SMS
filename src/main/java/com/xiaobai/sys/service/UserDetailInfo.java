@@ -103,7 +103,6 @@ public class UserDetailInfo extends BaseService<UserInfo> implements UserDetails
 
 	public Map<String,Object> getAll(SysParam param) {
 		Map<String,Object> result=new HashMap<>();
-		param.setIsEnable(1);
 		List<UserInfo> list = mapper.getAll(param);
 		result.put("data",list);
 		//可加入分页, 总数等数据

@@ -14,17 +14,36 @@ import java.util.Map;
  * Mapper
  */
 public interface BaseMapper<T>extends tk.mybatis.mapper.common.BaseMapper<T> {
+    /**
+     * 系统模块使用, 未改成通用版
+     * @param param
+     * @return
+     */
     @SelectProvider(type = BaseDaoProvider.class, method = "find")
     List<T> getAll(SysParam param);
+    @SelectProvider(type = BaseDaoProvider.class, method = "count")
+    Integer getCount(SysParam param);
 
     /**
-     * 参数为Map,
+     * 参数为Map,分页
+     * @param param
+     * @return
+     */
+    @SelectProvider(type = BaseDaoProvider.class, method = "findByMapToPage")
+    List<Map<String,Object>> getAllMap(Map<String,Object> param);
+    /**
+     * 参数为Map,不分页
      * @param param
      * @return
      */
     @SelectProvider(type = BaseDaoProvider.class, method = "findByMap")
-    List<Map<String,Object>> getAllMap(Map<String,Object> param);
+    List<Map<String,Object>> getAllList(Map<String,Object> param);
+    /**
+     * 参数为Map,count
+     * @param param
+     * @return
+     */
+    @SelectProvider(type = BaseDaoProvider.class, method = "countByMap")
+    Integer getAllCount(Map<String,Object> param);
 
-    @SelectProvider(type = BaseDaoProvider.class, method = "count")
-    Integer getCount(SysParam param);
 }

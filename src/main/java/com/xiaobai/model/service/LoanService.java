@@ -23,23 +23,23 @@ public class LoanService extends BaseService<Loan> {
     public BaseMapper<Loan> getMapper() {
         return mapper;
     }
-    public Map<String,Object> getAll(SysParam param) {
-        param.setTablename("t_loan");
-        Map<String,Object> result=new HashMap<>();
-        List<Loan> list = mapper.getAll(param);
-        result.put("data",list);
-        result.put("total",mapper.getCount(param));
-        return result;
+    public List<Map<String,Object>> getAll(Map<String,Object> param) {
+        param.put("TABLE_NAME","t_loan");
+        param.put("status",Integer.parseInt(param.get("status").toString()));
+        List<Map<String, Object>> list = mapper.getAllList(param);
+        return list;
     }
 
     public Map<String,Object> getAllMap(Map<String,Object> param) {
         param.put("TABLE_NAME","t_loan");
-        param.put("COLUMNS","t_loan.*");
+        param.put("COLUMNS","*");
         param.put("INNER_JOIN","t_user on t_user.id=t_loan.userid");
+        param.put("t_loan.status",Integer.parseInt(param.get("status").toString()));
+        param.remove("status");
         List<Map<String, Object>> list = mapper.getAllMap(param);
         Map<String,Object> result=new HashMap<>();
         result.put("data",list);
-        result.put("total",0);
+        result.put("total",mapper.getAllCount(param));
         return result;
     }
 }

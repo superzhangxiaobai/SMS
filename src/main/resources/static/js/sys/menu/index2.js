@@ -146,7 +146,7 @@ var menu=new Vue({
 		},
 		menu_upd:function(param){
 			this.menu_form=common.deepCopy(param.row);
-			this.menu_form.p_menuname=menu.menus.filter(item=>item.id==menu.menus[param.index].pid)[0].menuname;
+			// this.menu_form.p_menuname=param.row.pid==0?'根目录':menu.menus.filter(item=>item.id==menu.menus[param.index].pid)[0].menuname;
 			this.is_show=true;
 		},
 		menu_del:function(root, node, data){

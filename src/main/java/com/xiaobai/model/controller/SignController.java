@@ -11,8 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,8 +30,14 @@ public class SignController extends BaseController {
     }
     @RequestMapping("getAll")
     @ResponseBody
-    public Map<String,Object> getAll(SysParam param){
-        Map<String,Object> result= service.getAll(param);
+    public List<Map<String,Object>> getAll(@RequestParam Map<String,Object> param){
+        List<Map<String,Object>> result= service.getAll(param);
+        return result;
+    }
+    @RequestMapping("getAllMap")
+    @ResponseBody
+    public Map<String,Object> getAllMap(@RequestParam Map<String,Object> param){
+        Map<String,Object> result= service.getAllMap(param);
         return result;
     }
     @RequestMapping("addOrUpdate")

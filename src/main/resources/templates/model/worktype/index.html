@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="utf-8"/>
-    <link th:include="base/base::header ('菜单管理')" />
+    <link th:include="base/base::header ('工种设置')" />
     <link rel="stylesheet" th:href="@{/css/sys/base/base.css}"/>
 </head>
 <body>
@@ -11,29 +11,26 @@
     <div id="app">
         <i-row :gutter="10">
             <i-col span="24" :xs="24" :sm="24" :md="24" :lg="24" span="24">
-                用户名:<i-input v-model="param.searchStr" placeholder="用户名" style="width:100px" @on-change="getData"/>
+                工种:<i-input v-model="param.searchStr" placeholder="工种" style="width:100px" @on-change="getData"/>
                 <i-button shape="circle" icon="ios-refresh" @click="getData"></i-button>
                 <i-button type="success" icon="ios-add" size="small" @click="app_form_add">新增</i-button>
                 <i-table highlight-row :columns="app_columns" :data="data" :loading="loading" :stripe="stripe" :height="containerhei"></i-table>
             </i-col>
         </i-row>
         <Page :total="param.total" show-sizer show-total @on-page-size-change="on_page_size_change" @on-change="on_change"/>
-        <Modal title="用户信息" v-model="is_show_app" class-name="vertical-center-modal" @on-ok="app_form_submit" ok-text="提交"><!--垂直居中样式-->
+        <Modal title="打卡记录" v-model="is_show_app" class-name="vertical-center-modal" @on-ok="app_form_submit" ok-text="提交"><!--垂直居中样式-->
             <i-form :model="app_form" :label-width="80" :rules="app_rules">
-                <form-item label="用户名">
-                    <i-input v-model="app_form.username" placeholder="用户名" @on-blur="getPY"></i-input>
+                <form-item label="工种">
+                    <i-input v-model="app_form.worktype" placeholder="工种"></i-input>
                 </form-item>
-                <form-item label="预支金额">
-                    <i-input v-model="app_form.loan" placeholder="预支金额"></i-input>
+                <form-item label="计算单位">
+                    <i-input v-model="app_form.counttype" placeholder="工资计算单位"></i-input>
+                </form-item>
+                <form-item label="薪资">
+                    <i-input v-model="app_form.salary" placeholder="薪资"></i-input>
                 </form-item>
                 <form-item label="备注">
                     <i-input type="textarea" v-model="app_form.memo" placeholder="备注"></i-input>
-                </form-item>
-                <form-item label="激活状态">
-                    <i-switch v-model="app_form.isActive">
-                        <span slot="open">是</span>
-                        <span slot="close">否</span>
-                    </i-switch>
                 </form-item>
             </i-form>
         </Modal>
@@ -41,6 +38,6 @@
 
 </div>
 
-<script th:src="@{/js/model/loan/index.js}"></script>
+<script th:src="@{/js/model/worktype/index.js}"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.xiaobai.sys.base;
 
 import org.apache.ibatis.jdbc.SQL;
+import tk.mybatis.mapper.annotation.Order;
 
 import java.util.Map;
 
@@ -11,30 +12,53 @@ public class BaseDaoProvider {
      * @param param
      * @return
      */
+    public static String findByMapToPage(Map<String,Object> param){
+        Integer pageNo=param.get("pageNo")==null?1:Integer.parseInt(param.get("pageNo").toString());
+        Integer pageSize=param.get("pageSize")==null?15:Integer.parseInt(param.get("pageSize").toString());
+        String sql= createSql(param);
+        sql+="\nLIMIT "+(pageNo-1)*pageSize+","+pageSize;
+        System.out.println(sql);
+        return sql;
+    }
     public static String findByMap(Map<String,Object> param){
+        String sql= createSql(param);
+        System.out.println(sql);
+        return sql;
+    }
+    public static String countByMap(Map<String,Object> param){
+        param.put("COLUMNS","count(*)");
+        String sql= createSql(param);
+        System.out.println(sql);
+        return sql;
+    }
+    private static String createSql(Map<String,Object> param){
         String tablename = param.get("TABLE_NAME").toString();//表名
-        param.remove("TABLE_NAME");
         String columns =param.get("COLUMNS")==null?"*":param.get("COLUMNS").toString();//表名
-        param.remove("COLUMNS");
         String sql= new SQL() {{
             SELECT(columns);
             FROM(tablename);
-            for(String key : param.keySet()){
-                String value = param.get(key).toString();
+            param.forEach((key,item)->{
+                String value = item.toString();
                 if(key.equals("LEFT_JOIN")){
                     LEFT_OUTER_JOIN(value);
                 }else if(key.equals("RIGHT_JOIN")){
                     RIGHT_OUTER_JOIN(value);
                 }else if(key.equals("INNER_JOIN")){
                     INNER_JOIN(value);
-                }else{
-                    WHERE(key+" = "+value);
+                }else if(key.equals("ORDER_BY")){
+                    ORDER_BY(value);
+                }else if(!"TABLE_NAME,pageNo,pageSize,COLUMNS,ORDER_BY".contains(key)&&value!=""){
+                    if(item instanceof Integer)//外键使用=, 后台传入
+                        WHERE(key+" = "+value);
+                    else if(item instanceof String)
+                        WHERE(key+" like '%"+value+"%'");
                 }
-            }
+            });
         }}.toString();
-        System.out.println(sql);
         return sql;
     }
+
+
     public static String find(SysParam param) {
         String tablename = param.getTablename();//表名
         String sql= new SQL() {{
@@ -49,14 +73,11 @@ public class BaseDaoProvider {
             if(param.getStatus()!=null){
                 WHERE(" status = #{status, jdbcType=INTEGER}");
             }
-            if(param.getIsEnable()!=null){
-                WHERE(" isEnable = #{isEnable, jdbcType=INTEGER}");
-            }
-            //ORDER_BY("id desc ");
         }}.toString();
-        sql+=" limit "+((param.getPageNo()-1)*param.getPageSize())+","+param.getPageSize();
+        sql+="\nLIMIT "+((param.getPageNo()-1)*param.getPageSize())+","+param.getPageSize();
         return sql;
     }
+
     public static String count(SysParam param) {
         String tablename = param.getTablename();//表名
         String sql= new SQL() {{
@@ -71,12 +92,7 @@ public class BaseDaoProvider {
             if(param.getStatus()!=null){
                 WHERE(" status = #{status, jdbcType=INTEGER}");
             }
-            if(param.getIsEnable()!=null){
-                WHERE(" isEnable = #{isEnable, jdbcType=INTEGER}");
-            }
-            //ORDER_BY("id desc ");
         }}.toString();
-        sql+="limit "+((param.getPageNo()-1)*param.getPageSize())+","+param.getPageSize();
         return sql;
     }
 }

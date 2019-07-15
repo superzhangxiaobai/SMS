@@ -33,7 +33,6 @@
                             <i-input v-model="menu_form.url" placeholder="菜单编码"></i-input>
                         </form-item>
                         <form-item label="父级菜单">
-                            <i-input v-model="menu_form.p_menuname" placeholder="菜单名称" readonly></i-input>
                             <i-select v-model="menu_form.pid" style="width:200px">
                                 <i-option v-for="item in menus" :value="item.id" :key="item.id" v-if="item.type!='F'" :label="item.menuname">
                                     <span v-if="!item.pid" style="float:right;color:#CCCCCC">根目录</span>
