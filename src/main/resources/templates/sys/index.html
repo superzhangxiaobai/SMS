@@ -7,7 +7,6 @@
 	<link rel="stylesheet" th:href="@{/css/sys/base/base.css}"/>
     <!--<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
     <script src="//unpkg.com/iview@1.0.1/dist/iview.min.js"></script>-->
-
 </head>
 <body>
 	<!--<div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -25,8 +24,8 @@
 		 <a th:href="@{/admin}">管理页面</a> to admin page.
 	</p>-->
 	<div id="index">
-        <Layout :style="{minHeight: '100vh'}">
-            <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
+        <Layout>
+            <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed" class="topnav_box" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
                 <i-menu :class="menuitemClasses" width="auto" ref="menus" :theme="theme" v-for="(item,index) in menus" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
                     <Submenu :name="item.id" >
                         <template slot="title">
@@ -40,7 +39,7 @@
                     </Submenu>
                 </i-menu>
             </Sider>
-            <Layout>
+            <Layout :style="{minHeight: '100vh'}" :style="{marginLeft: '200px'}">
                 <Header>
                     <i-menu mode="horizontal" width="auto" :theme="theme2" >
                         <Button-group>
@@ -72,13 +71,13 @@
                     <Tabs type="card" :value="active_tab" @on-click="selectTab" @on-tab-remove="removeTab">
                         <Tab-pane v-for="(item,index) in tabs" v-if="item.show" :label="item.tabname" :name="item.id" :closable="item.closable">
                             <div class="layout-content-center">
-                                <iframe :id="'iframe'+item.id"  :src="item.content_url" :style="{height:containerhei + 'px'}"></iframe>
+                                <iframe :id="'iframe'+item.id"  :src="item.content_url" :style="{height:containerhei+'px'}"></iframe>
                             </div>
                         </Tab-pane>
                     </Tabs>
                 </Content>
                 <Footer>
-                    <div class="footer">© 2019 中联今通. 版权所有</div>
+                    <div class="footer" style="height: 50px;">© 2019 中联今通. 版权所有</div>
                 </Footer>
             </Layout>
         </Layout>

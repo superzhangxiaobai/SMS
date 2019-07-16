@@ -7,8 +7,9 @@ var index=new Vue({
 		active_menu:0,//
 		active_tab:0,
 		font_color:'#515A6E',
-		open_menu:[],//
+		open_menu:[],//打开的主菜单
 		containerhei:0,//iframe高度
+		windowHeight:0,
 		closable:'closable',
 		menus:[],
 		tabs:[
@@ -85,7 +86,9 @@ var index=new Vue({
 				index.isCollapsed=false;
 			}
 			if(menu_name.length==0)return;
-			this.open_menu=menu_name;
+			if(index.open_menu.indexOf(menu_name[0])==-1){
+				index.open_menu.push(menu_name[0]);
+			}
             var menu=this.getMenuItem(menu_name);
             var menu_url=menu.url;
             var allowAddTab=this.allowAddTab(menu.id);
@@ -121,7 +124,6 @@ var index=new Vue({
             this.active_tab=tab_name;
             var menu=this.getMenuItem(tab_name);
             this.active_menu=menu.id;
-            this.open_menu=menu.pid;
 		},
 		//获取当前的Menuitem
 		getMenuItem:function(menu_name){
@@ -166,13 +168,13 @@ var index=new Vue({
 });
 
 $(function () {
-	index.containerhei=$(window).height()-132;
+	index.windowHeight=$(window).height();
+	index.containerhei=$(window).height()-165;
 	axios
 		.get(ctxPath + "sys/permission/user")
 		.then(function (response) {
 			var tree=common.filterArray(response.data,0);
             $.each(tree, function (n, item) {
-            	index.open_menu=item.id;
                 index.menus.push(item);
             });
 		});
