@@ -7,7 +7,7 @@ var index=new Vue({
 		active_menu:0,//
 		active_tab:0,
 		font_color:'#515A6E',
-		open_menu:[],//打开的主菜单
+		open_menu:'',//打开的主菜单
 		containerhei:0,//iframe高度
 		windowHeight:0,
 		closable:'closable',
@@ -27,7 +27,7 @@ var index=new Vue({
 			if(status){
 				console.log(1)
 				this.$nextTick(()=>{
-					this.$refs.menus.updateActiveName();
+					// this.$refs.menus.updateActiveName();
 				});
 			}
 		}
@@ -82,13 +82,15 @@ var index=new Vue({
 		},
 		//选中的主菜单
 		openMenu:function(menu_name){
+			index.open_menu=menu_name[0];
+
 			if(index.isCollapsed){
 				index.isCollapsed=false;
 			}
 			if(menu_name.length==0)return;
-			if(index.open_menu.indexOf(menu_name[0])==-1){
+			/*if(index.open_menu.indexOf(menu_name[0])==-1){
 				index.open_menu.push(menu_name[0]);
-			}
+			}*/
             var menu=this.getMenuItem(menu_name);
             var menu_url=menu.url;
             var allowAddTab=this.allowAddTab(menu.id);

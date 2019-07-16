@@ -26,8 +26,8 @@
 	<div id="index">
         <Layout>
             <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed" class="topnav_box" :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
-                <i-menu :class="menuitemClasses" width="auto" ref="menus" :theme="theme" v-for="(item,index) in menus" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
-                    <Submenu :name="item.id" >
+                <i-menu :class="menuitemClasses" accordion width="auto" ref="menus" :theme="theme" :open-names="open_menu" :active-name="active_menu" @on-open-change="openMenu" @on-select="selectMenu">
+                    <Submenu :name="item.id" v-for="(item,index) in menus">
                         <template slot="title">
                             <Icon :type="item.icon"></Icon>
                             <span>{{item.menuname}}</span>
